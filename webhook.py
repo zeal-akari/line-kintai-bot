@@ -22,7 +22,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 # ユーザーIDと社員名の対応表（必要に応じて追加）
 user_map = {
-    "Uxxxxxxxxxx1": "山田太郎",
+    "U48574bc03da24b86fc317be9c05905d5": "坂井陽",
     "Uxxxxxxxxxx2": "鈴木花子",
     "Uxxxxxxxxxx3": "佐藤健",
     "Uxxxxxxxxxx4": "田中花子",
@@ -71,10 +71,13 @@ def handle_message(event):
     msg = event.message.text.strip()
     user_id = event.source.user_id
 
-    # 一時的にユーザーIDを返信（スプレッドシート記録は一時停止）
+    # 勤怠記録を実行
+    record_to_sheet(user_id, msg)
+
+    user_name = user_map.get(user_id, "未登録ユーザー")
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=f"あなたのLINE ID: {user_id}\n受信メッセージ: {msg}")
+        TextSendMessage(text=f"{user_name} さんの「{msg}」を記録しました。")
     )
 
 
@@ -82,3 +85,4 @@ def handle_message(event):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+"# �ăf�v���C�����p�R�����g" 
