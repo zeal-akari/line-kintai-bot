@@ -29,6 +29,11 @@ user_map = {
     "Uxxxxxxxxxx5": "高橋一郎"
 }
 
+# ✅ UptimeRobot用のヘルスチェックエンドポイント
+@app.route("/", methods=["GET"])
+def health_check():
+    return "OK", 200
+
 # Google Sheets に記録する関数
 def record_to_sheet(user_id, message):
     name = user_map.get(user_id)
@@ -49,7 +54,7 @@ def record_to_sheet(user_id, message):
     )
     client = gspread.authorize(creds)
 
-    # ✅ スプレッドシート名を「勤怠管理」に修正
+    # スプレッドシートを開き、対応するシート（タブ）を選択
     sheet = client.open("勤怠管理").worksheet(name)
     sheet.append_row([date_str, time_str, message])
 
