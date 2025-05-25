@@ -1,5 +1,7 @@
 import os
 import datetime
+import pytz  # ← 追加
+
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -40,7 +42,9 @@ def record_to_sheet(user_id, message):
     if not name:
         return  # 登録されていないユーザーはスキップ
 
-    now = datetime.datetime.now()
+    # ✅ 日本時間を取得
+    tz = pytz.timezone("Asia/Tokyo")
+    now = datetime.datetime.now(tz)
     date_str = now.strftime("%Y/%m/%d")
     time_str = now.strftime("%H:%M:%S")
 
