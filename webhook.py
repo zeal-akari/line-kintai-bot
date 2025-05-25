@@ -49,8 +49,8 @@ def record_to_sheet(user_id, message):
     )
     client = gspread.authorize(creds)
 
-    # スプレッドシートを開き、対応するシート（タブ）を選択
-    sheet = client.open("勤怠記録").worksheet(name)
+    # ✅ スプレッドシート名を「勤怠管理」に修正
+    sheet = client.open("勤怠管理").worksheet(name)
     sheet.append_row([date_str, time_str, message])
 
 # Webhookエンドポイント
