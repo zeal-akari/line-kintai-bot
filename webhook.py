@@ -71,6 +71,9 @@ def handle_message(event):
     msg = event.message.text.strip()
     user_id = event.source.user_id
 
+    # デバッグ用：呼び出しログを出力
+    print(f"record_to_sheet() を呼び出します：user_id={user_id}, msg={msg}")
+
     # 勤怠記録を実行
     record_to_sheet(user_id, msg)
 
@@ -80,9 +83,7 @@ def handle_message(event):
         TextSendMessage(text=f"{user_name} さんの「{msg}」を記録しました。")
     )
 
-
 # アプリ起動
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-"#  ăf v   C     p R     g" 
