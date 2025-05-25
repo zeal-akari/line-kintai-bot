@@ -30,7 +30,7 @@ user_map = {
 }
 
 # ✅ UptimeRobot用のヘルスチェックエンドポイント
-@app.route("/", methods=["GET"])
+@app.route("/health_check", methods=["GET"])
 def health_check():
     return "OK", 200
 
